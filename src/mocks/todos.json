@@ -1,0 +1,36 @@
+[
+    {
+        "color": "rgba(255, 163, 148, 0.5)",
+        "title": "Tasks",
+        "id": "1",
+        "createdAt": 1652699481777,
+        "todoCards": [{
+            "color": "#e66465",
+            "title": "Hello 1",
+            "id": "todo-1",
+            "createdAt": 1652699581777,
+            "description": "des 1"
+        },
+        {
+            "color": "#f6b73c",
+            "title": "Hello 2",
+            "id": "todo-2",
+            "createdAt": 1652699681777,
+            "description": "des 2"
+        }] 
+    },
+    {
+        "color": "rgba(70, 255, 93, 0.5)",
+        "title": "Process",
+        "id": "2",
+        "createdAt": 1652699482777,
+        "todoCards": [] 
+    },
+    {
+        "color": "rgba(255, 246, 141, 0.5)",
+        "title": "Completed",
+        "id": "3",
+        "createdAt": 1652699483777,
+        "todoCards": [] 
+    }
+]
