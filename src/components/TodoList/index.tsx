@@ -9,6 +9,7 @@ import { TodoListInterface } from './types'
 const TodoList = (properties: TodoListInterface) => {
     const {
         todoList,
+        categoryList = [],
         // methods
         addTodoCard,
         handleTodoCardColor,
@@ -18,7 +19,8 @@ const TodoList = (properties: TodoListInterface) => {
         editTodoCardData,
         updateTodoListData,
         deleteTodoCard,
-        deleteTodoList
+        deleteTodoList,
+        updateListOnCategoryChange
     } = properties
 
     const {
@@ -106,7 +108,6 @@ const TodoList = (properties: TodoListInterface) => {
             className={classes.todoListContainer}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
-
         >
             <>
                 <Box className={classes.cardActionContainer}>
@@ -150,10 +151,12 @@ const TodoList = (properties: TodoListInterface) => {
                     todoCards.map((todo) => (
                         <TodoCard
                             todoCard={todo}
+                            categoryList={categoryList}
                             key={todo.id}
                             changeColor={changeTodoCardColor}
                             setDraggedData={handleDraggedData}
                             editTodoCard={handleTodoCardData}
+                            updateListOnCategoryChange={updateListOnCategoryChange}
                             deleteTodoCard={removeTodoCard}
                         />
                     ))

@@ -26,7 +26,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         border: 'none',
         position: 'absolute',
         opacity: 0,
-        borderRadius: '100%'
+        borderRadius: '100%',
+        cursor: 'pointer'
+    },
+    categoryList: {
+        display: 'flex',
+        marginLeft: '5px'
     },
     cardActionContainer: {
         display: 'flex',

@@ -1,17 +1,29 @@
-import { Box, Card, CardActions, CardContent, CardHeader, IconButton, Typography } from "@material-ui/core"
+import { 
+    Box, 
+    Card, 
+    CardActions, 
+    CardContent, 
+    CardHeader, 
+    IconButton, 
+    Typography,
+    Select,
+    MenuItem 
+} from "@material-ui/core"
 import { EditTwoTone, DeleteForeverTwoTone } from '@material-ui/icons'
 import { ChangeEvent, useState } from "react"
 import useStyles from './styles'
-import { TodoCardInterface } from './types'
+import { TodoCardDataInterface, TodoCardInterface } from './types'
 
 const TodoCard = (properties: TodoCardInterface) => {
     const { 
         todoCard,
+        categoryList = [],
         // Methods
         changeColor,
         setDraggedData,
         editTodoCard,
-        deleteTodoCard
+        deleteTodoCard,
+        updateListOnCategoryChange = (_data: TodoCardDataInterface, _id: string) => null
     } = properties
 
     const {
@@ -19,7 +31,8 @@ const TodoCard = (properties: TodoCardInterface) => {
         description,
         id,
         title,
-        color = '#fff'
+        color = '#fff',
+        todoListId
     } = todoCard
 
     const [isDragStart, setIsDragStart] = useState(false)
@@ -63,6 +76,23 @@ const TodoCard = (properties: TodoCardInterface) => {
                                 className={classes.colorInput}
                             />
                         </Box>
+                        {categoryList.length && (<Box className={classes.categoryList}>
+                            <Select
+                                labelId="demo-simple-small-label"
+                                id="demo-simple-select"
+                                label="Age"
+                                value={todoListId}
+                                variant="standard"
+                                onChange={(event) => updateListOnCategoryChange(todoCard, event.target.value as string)}
+                            >
+                                {categoryList.map((category) => (
+                                    <MenuItem 
+                                        value={category.listId}
+                                        key={category.listId}
+                                    >{category.value}</MenuItem>
+                                ))}
+                            </Select>
+                        </Box>)}
                     </Box>
                 }
             />

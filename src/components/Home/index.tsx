@@ -19,30 +19,31 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
     const [draggedDataState, setDraggedDataState] = useState<DraggedTodoCardDataInterface>()
 
     useEffect(() => {
-        const  myLocalData = localStorage.getItem('myTodoData');
+        const myLocalData = localStorage.getItem('myTodoData');
         if (myLocalData) {
             const myLocalDataList = JSON.parse(myLocalData) as Array<TodoListDataInterface>;
             updateMyStateLocal(myLocalDataList);
-        }else {
+        } else {
             updateMyStateLocal(todoListsState);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useImperativeHandle(ref, () => {
         const addNewList = (): void => {
             const newListObject: TodoListDataInterface = {
-              createdAt: Date.now(),
-              id: Date.now().toString(),
-              title: 'Title',
-              todoCards: [],
-              color: 'rgba(255, 255, 255, 0.5)'
+                createdAt: Date.now(),
+                id: Date.now().toString(),
+                title: 'Title',
+                todoCards: [],
+                color: 'rgba(255, 255, 255, 0.5)'
             }
             updateMyStateLocal([
-              ...todoListsState,
-              newListObject
+                ...todoListsState,
+                newListObject
             ]);
         }
-        return { addNewList } 
+        return { addNewList }
     })
 
     const addTodoCard = (listId: string): void => {
@@ -51,7 +52,8 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
             description: 'description',
             id: Date.now().toString(),
             title: 'Title',
-            color: '#fff'
+            color: '#fff',
+            todoListId: listId
         }
 
         const updatedTodoList = todoListsState.map((listData) => {
@@ -125,12 +127,14 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
         updateMyStateLocal(updatedTodoList)
     }
 
-    const updateListOnDrag = (listId: string): void => {
-        if (!draggedDataState) return
+    const updateListOnDrag = (listId: string, draggedDataStateValue = draggedDataState): void => {
+        if (!draggedDataStateValue) draggedDataStateValue = draggedDataState;
+        if (!draggedDataStateValue) return
         const {
             todoCardData,
             todoTargetListId
-        } = draggedDataState
+        } = draggedDataStateValue
+        console.log('==', draggedDataStateValue);
 
         let updatedTodoList = todoListsState.map((listData) => {
             if (listData.id === todoTargetListId) {
@@ -140,15 +144,23 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
             return listData
         })
 
+        const draggedData = {
+            ...draggedDataState,
+            todoCardData: {
+                ...draggedDataStateValue.todoCardData,
+                todoListId: listId
+            }
+        }
+
         updatedTodoList = todoListsState.map((listData) => {
             if (listData.id === listId) {
                 return {
                     ...listData,
-                    todoCards: [...listData.todoCards, draggedDataState.todoCardData]
+                    todoCards: [...listData.todoCards, draggedData.todoCardData]
                 }
             }
             return listData
-        })
+        });
         updateMyStateLocal(updatedTodoList)
     }
 
@@ -239,7 +251,20 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
         updateMyStateLocal([...todoListsState])
     }
 
+    const updateListOnCategoryChange = (todoCardData: TodoCardDataInterface, todoListId: string) => {
+        updateListOnDrag(todoListId, {
+            todoTargetListId: todoCardData.todoListId,
+            todoCardData
+        });
+    }
+
     const classes = useStyles()
+    const categoryList = todoListsState.map((todoListData) => (
+        {
+            listId: todoListData.id,
+            value: todoListData.title
+        }
+    ));
 
     return (
         <Box className={classes.root}>
@@ -248,6 +273,7 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
                     <TodoList
                         todoList={todoList}
                         key={todoList.id}
+                        categoryList={categoryList}
                         addTodoCard={addTodoCard}
                         handleTodoCardColor={handleTodoCardColor}
                         handleTodoListColor={handleTodoListColor}
@@ -257,6 +283,7 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
                         updateTodoListData={updateTodoListData}
                         deleteTodoCard={deleteTodoCard}
                         deleteTodoList={deleteTodoList}
+                        updateListOnCategoryChange={updateListOnCategoryChange}
                     />
                 ))
             }

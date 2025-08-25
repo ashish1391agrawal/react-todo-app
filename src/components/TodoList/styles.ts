@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         border: 'none',
         position: 'absolute',
         opacity: 0,
-        borderRadius: '100%'
+        borderRadius: '100%',
+        cursor: 'pointer'
     },
     '@global': {
         '*::-webkit-scrollbar': {

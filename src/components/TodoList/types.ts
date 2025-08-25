@@ -2,6 +2,7 @@ import { ChangeColorInterface, DraggedTodoCardDataInterface, TodoCardDataInterfa
 
 export interface TodoListInterface {
     todoList: TodoListDataInterface;
+    categoryList?: Array<HandleTodoListColorInterface>;
     // Methods 
     addTodoCard: (todoId: string) => void;
     handleTodoCardColor: (todoCardObject: HandleTodoCardColorInterface) => void;
@@ -12,6 +13,7 @@ export interface TodoListInterface {
     updateTodoListData: (data: TodoListDataInterface) => void;
     deleteTodoCard: (data: DeleteTodoCardInterface) => void;
     deleteTodoList: (listId: string) => void;
+    updateListOnCategoryChange: (data: TodoCardDataInterface, listId: string) => void;
 }
 
 export interface DeleteTodoCardInterface {
