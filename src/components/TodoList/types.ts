@@ -36,6 +36,7 @@ export interface HandleTodoCardColorInterface extends ChangeColorInterface {
 
 export interface TodoListDataInterface {
     color?: string;
+    backgroundColor?: string;
     title: string;
     id: string;
     createdAt: number;

@@ -7,14 +7,16 @@ const useStyles = makeStyles((theme: Theme) => ({
         margin: theme.spacing(1),
         cursor: 'move',
         maxWidth: 300,
-        backgroundColor: (properties: TodoCardStyleInterface) => properties.color,
+        color: (properties: TodoCardStyleInterface) => properties.color,
+        backgroundColor: (properties: TodoCardStyleInterface) => properties.backgroundColor,
         opacity: (properties: TodoCardStyleInterface) => properties.isDragStart ? 0 : 1
     },
     colorOption: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(1.5),
+        height: theme.spacing(1.5),
         cursor: 'pointer',
-        backgroundColor: (properties: TodoCardStyleInterface) => properties.color,
+        color: (properties: TodoCardStyleInterface) => properties.color,
+        backgroundColor: (properties: TodoCardStyleInterface) => properties.backgroundColor,
         border: '1px solid',
         position: 'relative',
         borderRadius: '100%'
@@ -40,12 +42,36 @@ const useStyles = makeStyles((theme: Theme) => ({
     todoDetailContainer: {
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
+        textOverflow: 'ellipsis',
+        fontSize: '12px',
+        color: (properties: TodoCardStyleInterface) => properties.color,
     },
     todoCardActionContainer: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
+    },
+    withoutMargin: {
+        padding: "5px 16px"
+    },
+    headerAction: {
+        marginTop: '0px',
+        marginRight: '0px'
+    },
+    titleFont: {
+        fontSize: '12px',
+        fontWeight: 'bold'
+    },
+    otherFont: {
+        fontSize: '12px'
+    },
+    iconFontSize: {
+        fontSize: '16px',
+        color: (properties: TodoCardStyleInterface) => properties.color,
+    },
+    selectControl: {
+        lineHeight: 'normal',
+        color: (properties: TodoCardStyleInterface) => properties.color,
     } 
 }))
 

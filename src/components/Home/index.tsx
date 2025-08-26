@@ -49,10 +49,11 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
     const addTodoCard = (listId: string): void => {
         const defaultTodoCard: TodoCardDataInterface = {
             createdAt: Date.now(),
-            description: 'description',
+            description: 'Add your task description',
             id: Date.now().toString(),
-            title: 'Title',
-            color: '#fff',
+            title: 'Task Title',
+            color: '#000',
+            backgroundColor: '#fff',
             todoListId: listId
         }
 
@@ -79,9 +80,10 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
             if (listData.id === todoListId) {
                 const updatedTodoCard = listData.todoCards.map((todoCardObject) => {
                     if (todoCardObject.id === cardId) {
+                        const colorObject = hexToRgbA(value, false);
                         return {
                             ...todoCardObject,
-                            color: value
+                            ...colorObject
                         }
                     }
                     return todoCardObject
@@ -96,15 +98,27 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
         updateMyStateLocal(updatedTodoList)
     }
 
-    const hexToRgbA = (hex: string): string => {
+    const hexToRgbA = (hex: string, isUseRgba = true): {color: string, backgroundColor: string} => {
         let c: any = []
         if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
             c = hex.substring(1).split('')
             if (c.length === 3) {
                 c = [c[0], c[0], c[1], c[1], c[2], c[2]]
             }
-            c = '0x' + c.join('')
-            return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},0.5)`
+            c = '0x' + c.join('');
+            const colorArray = [(c >> 16) & 255, (c >> 8) & 255, c & 255];
+
+            if(!isUseRgba) {
+                return {
+                    color: `rgb(${[(255 - colorArray[0]), (255 - colorArray[1]), (255 - colorArray[2])].join(',')})`,
+                    backgroundColor: `rgba(${[colorArray[0], colorArray[1], colorArray[2]].join(',')}, 0.8)`
+                };    
+            }
+            return {
+                color: `rgba(${[(255 - colorArray[0]), (255 - colorArray[1]), (255 - colorArray[2])].join(',')}, 0.5)`,
+                backgroundColor: `rgba(${[colorArray[0], colorArray[1], colorArray[2]].join(',')}, 0.5)`
+            }
+            // return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')}, 0.5)`;
         }
         throw new Error('Bad Hex')
     }
@@ -119,7 +133,7 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
             if (listData.id === listId) {
                 return {
                     ...listData,
-                    color: hexToRgbA(value)
+                    ...hexToRgbA(value)
                 }
             }
             return listData

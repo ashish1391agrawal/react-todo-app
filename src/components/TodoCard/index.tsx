@@ -31,21 +31,22 @@ const TodoCard = (properties: TodoCardInterface) => {
         description,
         id,
         title,
-        color = '#fff',
+        color = '#000',
+        backgroundColor = '#fff',
         todoListId
     } = todoCard
 
     const [isDragStart, setIsDragStart] = useState(false)
 
     const handleColor = (event: ChangeEvent<HTMLInputElement>): void => {
-        const { target: { value }} = event
+        const { target: { value }} = event;
         changeColor({
             cardId: id,
             value
         })
     }
 
-    const classes = useStyles({ color, isDragStart })
+    const classes = useStyles({ color, isDragStart, backgroundColor })
 
     let createTime = new Date(createdAt).getDate().toString()
     createTime += ` / ${new Date(createdAt).getMonth() + 1}`
@@ -65,7 +66,7 @@ const TodoCard = (properties: TodoCardInterface) => {
                     <Box className={classes.cardActionContainer}>
                         <Box>
                             <IconButton size="small" onClick={() => editTodoCard(todoCard)}>
-                                <EditTwoTone />
+                                <EditTwoTone classes={{root: classes.iconFontSize}} />
                             </IconButton>
                         </Box>
                         <Box className={classes.colorOption}>
@@ -78,6 +79,10 @@ const TodoCard = (properties: TodoCardInterface) => {
                         </Box>
                         {categoryList.length && (<Box className={classes.categoryList}>
                             <Select
+                                classes={{
+                                    root: `${classes.otherFont}  ${classes.selectControl}`,
+                                    icon: classes.selectControl
+                                }}
                                 labelId="demo-simple-small-label"
                                 id="demo-simple-select"
                                 label="Age"
@@ -87,6 +92,7 @@ const TodoCard = (properties: TodoCardInterface) => {
                             >
                                 {categoryList.map((category) => (
                                     <MenuItem 
+                                        classes={{root: classes.otherFont}}
                                         value={category.listId}
                                         key={category.listId}
                                     >{category.value}</MenuItem>
@@ -95,8 +101,13 @@ const TodoCard = (properties: TodoCardInterface) => {
                         </Box>)}
                     </Box>
                 }
+                classes={{
+                    root: classes.withoutMargin, 
+                    action: classes.headerAction,
+                    title: classes.titleFont
+                }}
             />
-            <CardContent>
+            {description && (<CardContent classes={{root: classes.withoutMargin}}>
                 <Typography 
                     variant="body2" 
                     color="textSecondary" 
@@ -105,13 +116,16 @@ const TodoCard = (properties: TodoCardInterface) => {
                 >
                     {description}
                 </Typography>
-            </CardContent>
-            <CardActions className={classes.todoCardActionContainer}>
-                <Typography variant="caption">
+            </CardContent>)}
+            <CardActions classes={{root: classes.todoCardActionContainer}}>
+                <Typography variant="caption" classes={{root: classes.otherFont}}>
                     Created at: {createTime}
                 </Typography>
                 <IconButton size="small" onClick={() => deleteTodoCard(id)}>
-                    <DeleteForeverTwoTone fontSize="small" />
+                    <DeleteForeverTwoTone 
+                        fontSize="small" 
+                        classes={{root: classes.iconFontSize}} 
+                    />
                 </IconButton>
             </CardActions>
         </Card>

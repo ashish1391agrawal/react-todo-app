@@ -18,6 +18,7 @@ export interface ChangeColorInterface {
 
 export interface TodoCardDataInterface {
     color?: string;
+    backgroundColor?: string;
     title: string;
     id: string;
     createdAt: number;
@@ -32,5 +33,6 @@ export interface DraggedTodoCardDataInterface {
 
 export interface TodoCardStyleInterface {
     color: string;
+    backgroundColor?: string;
     isDragStart: boolean;
 }

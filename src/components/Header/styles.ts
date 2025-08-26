@@ -22,6 +22,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         height: '100%',
         cursor: 'pointer'
+    },
+    titleFont: {
+        fontSize: '12px',
+        fontWeight: 'bold'
+    },
+    otherFont: {
+        fontSize: '12px'
     }
 }))
 

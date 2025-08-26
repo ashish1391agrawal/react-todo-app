@@ -28,7 +28,8 @@ const TodoList = (properties: TodoListInterface) => {
         id,
         title,
         todoCards,
-        color = '#fff'
+        color = '#000',
+        backgroundColor = '#fff'
     } = todoList
 
     const [isListEditable, setIsListEditable] = useState(false)
@@ -96,7 +97,7 @@ const TodoList = (properties: TodoListInterface) => {
         })
     }
 
-    const classes = useStyles({ color: color })
+    const classes = useStyles({ backgroundColor, color })
 
     const overrideTextFieldInputStyle = {
         root: classes.overrideOutlineRoot,
@@ -123,7 +124,7 @@ const TodoList = (properties: TodoListInterface) => {
                         ) : (
                             <Typography
                                 variant="body1"
-                                className={classes.todoTitle}
+                                className={`${classes.todoTitle} ${classes.titleFont}`}
                             >
                                 {title}
                             </Typography>)
@@ -134,7 +135,7 @@ const TodoList = (properties: TodoListInterface) => {
                             onClick={() => setIsListEditable(true)}
                             disabled={isListEditable}
                         >
-                            <EditTwoTone />
+                            <EditTwoTone classes={{root: `${classes.iconFontSize} ${classes.iconFontColor}`}}/>
                         </IconButton>
                         <Box className={classes.colorOption}>
                             <input
@@ -163,16 +164,16 @@ const TodoList = (properties: TodoListInterface) => {
                 }
                 <Box className={classes.addMoreIcon}>
                     <Box>
-                        <Typography variant="caption">
+                        <Typography variant="caption" classes={{root: classes.otherFont}}>
                             Created at: {createTime}
                         </Typography>
                     </Box>
                     <Box>
                         <IconButton size="small" onClick={() => addTodoCard(id)}>
-                            <AddCircleOutline fontSize="small" />
+                            <AddCircleOutline fontSize="small" classes={{root: classes.iconFontSize}} />
                         </IconButton>
                         <IconButton size="small" onClick={() => deleteTodoList(id)}>
-                            <DeleteForeverTwoTone fontSize="small" />
+                            <DeleteForeverTwoTone fontSize="small" classes={{root: classes.iconFontSize}} />
                         </IconButton>
                     </Box>
                 </Box>

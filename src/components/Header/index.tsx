@@ -16,7 +16,12 @@ const Header = (properties: HeaderInterface): ReactElement => {
 
     const handleMenuOpen = (event: MouseEvent<HTMLElement>): void => setAnchorEl(event.currentTarget)
 
-    const handleMenuClose = (): void => setAnchorEl(null)
+    const handleMenuClose = (): void => setAnchorEl(null);
+
+    const resetTodos = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
 
     const isOpen = !!anchorEl
     const classes = useStyles()
@@ -25,7 +30,7 @@ const Header = (properties: HeaderInterface): ReactElement => {
         <AppBar position="static" color="transparent">
             <Toolbar>
                 <Box className={classes.headerContainer}>
-                    <Typography variant="h6">
+                    <Typography variant="h6" classes={{root: classes.titleFont}}>
                         <Link to="/" className={classes.linkTag}>Home</Link>
                     </Typography>
                     <ClickAwayListener onClickAway={handleMenuClose}>
@@ -46,7 +51,7 @@ const Header = (properties: HeaderInterface): ReactElement => {
                         open={isOpen}
                         anchorEl={anchorEl}
                     >
-                        <MenuItem className={classes.fileInputContainer}>
+                        <MenuItem className={`${classes.fileInputContainer} ${classes.otherFont}`}>
                             Change background
                             <input 
                                 type="file" 
@@ -55,7 +60,14 @@ const Header = (properties: HeaderInterface): ReactElement => {
                                 onChange={handleBackground} 
                             />
                         </MenuItem>
-                        <MenuItem onClick={addNewList}>Add new list</MenuItem>
+                        <MenuItem 
+                            className={classes.otherFont} 
+                            onClick={addNewList}
+                        >Add new list</MenuItem>
+                        <MenuItem 
+                            className={classes.otherFont} 
+                            onClick={resetTodos}
+                        >Reset</MenuItem>
                     </Menu>
                 </Box>
             </Toolbar>

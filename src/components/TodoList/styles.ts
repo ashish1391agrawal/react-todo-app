@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderStyle: 'solid',
         borderWidth: 1,
         borderColor: (properties: { color: string }) => properties.color,
-        backgroundColor: (properties: { color: string }) => properties.color,
+        backgroundColor: (properties: { color: string, backgroundColor: string }) => properties.backgroundColor,
         boxShadow: (properties: { color: string }) => `0px 0px 4px 0px ${properties.color}`,
         borderRadius: 4,
         padding: theme.spacing(1),
@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderRadius: 4
     },
     colorOption: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(1.5),
+        height: theme.spacing(1.5),
         cursor: 'pointer',
-        backgroundColor: (properties: { color: string }) => properties.color,
+        color: (properties: { color: string }) => properties.color,
         border: '1px solid',
         position: 'relative',
         borderRadius: '100%'
@@ -63,6 +63,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             backgroundColor: theme.palette.background.default,
             outline: '1px solid slategrey',
             borderRadius: 50
+        },
+        '.MuiInput-underline::after, .MuiInput-underline::before': {
+            display: 'none'
         }
     },
     cardActionContainer: {
@@ -79,6 +82,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     overrideOutlineRoot: {
         marginBottom: theme.spacing(1)
+    },
+    titleFont: {
+        fontSize: '12px',
+        fontWeight: 'bold',
+        color: (properties: { color: string }) => properties.color,
+    },
+    otherFont: {
+        fontSize: '12px'
+    },
+    iconFontSize: {
+        fontSize: '16px'
+    },
+    iconFontColor: {
+        color: (properties: {color: string}) => properties.color,
     }
 }))
 
