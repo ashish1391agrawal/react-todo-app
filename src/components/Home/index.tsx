@@ -36,7 +36,8 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
                 id: Date.now().toString(),
                 title: 'Title',
                 todoCards: [],
-                color: 'rgba(255, 255, 255, 0.5)'
+                color: 'rgb(0, 0, 0)',
+                backgroundColor: 'rgba(255, 255, 255, 0.5)'
             }
             updateMyStateLocal([
                 ...todoListsState,
