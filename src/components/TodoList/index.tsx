@@ -5,6 +5,7 @@ import TodoCard from "../TodoCard"
 import { ChangeColorInterface, TodoCardDataInterface } from "../TodoCard/types"
 import useStyles from './styles'
 import { TodoListInterface } from './types'
+import ConfirmationDialog from "../ConfirmDialog"
 
 const TodoList = (properties: TodoListInterface) => {
     const {
@@ -34,6 +35,7 @@ const TodoList = (properties: TodoListInterface) => {
 
     const [isListEditable, setIsListEditable] = useState(false)
     const [titleState, setTitleState] = useState(title)
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
     let createTime = new Date(createdAt).getDate().toString()
     createTime += ` / ${new Date(createdAt).getMonth() + 1}`
@@ -104,6 +106,13 @@ const TodoList = (properties: TodoListInterface) => {
         input: classes.overrideOutlineInput
     }
 
+    const handleConfirmDialog = (status: boolean) => {
+        if(status) {
+            deleteTodoList(id);
+        }
+        setShowConfirmDialog(false);
+    }
+
     return (
         <Box
             className={classes.todoListContainer}
@@ -172,12 +181,17 @@ const TodoList = (properties: TodoListInterface) => {
                         <IconButton size="small" onClick={() => addTodoCard(id)}>
                             <AddCircleOutline fontSize="small" classes={{root: classes.iconFontSize}} />
                         </IconButton>
-                        <IconButton size="small" onClick={() => deleteTodoList(id)}>
+                        <IconButton size="small" onClick={() => setShowConfirmDialog(true)}>
                             <DeleteForeverTwoTone fontSize="small" classes={{root: classes.iconFontSize}} />
                         </IconButton>
                     </Box>
                 </Box>
             </>
+            <ConfirmationDialog
+                onAction={handleConfirmDialog}
+                open={showConfirmDialog}
+                description="You never retrive this data again!"
+            />
         </Box>
     )
 }

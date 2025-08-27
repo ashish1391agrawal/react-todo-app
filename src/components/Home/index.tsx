@@ -150,7 +150,6 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
             todoCardData,
             todoTargetListId
         } = draggedDataStateValue
-        console.log('==', draggedDataStateValue);
 
         let updatedTodoList = todoListsState.map((listData) => {
             if (listData.id === todoTargetListId) {
@@ -322,7 +321,6 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
                         </DialogContent>
                         <DialogActions>
                             <Button
-                                autoFocus
                                 variant="contained"
                                 color="primary"
                                 form='editTodoCard'
