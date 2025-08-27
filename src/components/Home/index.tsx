@@ -45,8 +45,7 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
             ]);
         }
         return { addNewList }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    })
 
     const addTodoCard = (listId: string): void => {
         const defaultTodoCard: TodoCardDataInterface = {
