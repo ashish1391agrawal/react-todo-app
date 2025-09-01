@@ -32,7 +32,7 @@ const TodoCard = (properties: TodoCardInterface) => {
         description,
         id,
         title,
-        color = '#000',
+        color = '#000000',
         backgroundColor = '#fff',
         todoListId
     } = todoCard

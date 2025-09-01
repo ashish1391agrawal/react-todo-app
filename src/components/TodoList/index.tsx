@@ -1,11 +1,12 @@
 import { Box, Divider, IconButton, OutlinedInput, Typography } from "@material-ui/core"
-import { AddCircleOutline, EditTwoTone, DeleteForeverTwoTone } from "@material-ui/icons"
+import { AddCircleOutline, EditTwoTone, DeleteForeverTwoTone, MultilineChart } from "@material-ui/icons"
 import { ChangeEvent, DragEvent, useState } from 'react'
 import TodoCard from "../TodoCard"
 import { ChangeColorInterface, TodoCardDataInterface } from "../TodoCard/types"
 import useStyles from './styles'
 import { TodoListInterface } from './types'
 import ConfirmationDialog from "../ConfirmDialog"
+import RichTextEditorDialog from "../RichTextEditor"
 
 const TodoList = (properties: TodoListInterface) => {
     const {
@@ -29,13 +30,14 @@ const TodoList = (properties: TodoListInterface) => {
         id,
         title,
         todoCards,
-        color = '#000',
+        color = '#000000',
         backgroundColor = '#fff'
     } = todoList
 
     const [isListEditable, setIsListEditable] = useState(false)
     const [titleState, setTitleState] = useState(title)
     const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+    const [showMultipleTodoDialog, setShowMultipleTodoDialog] = useState(false)
 
     let createTime = new Date(createdAt).getDate().toString()
     createTime += ` / ${new Date(createdAt).getMonth() + 1}`
@@ -113,6 +115,13 @@ const TodoList = (properties: TodoListInterface) => {
         setShowConfirmDialog(false);
     }
 
+    const addMultipleTodoCards = (data: boolean | Array<string>) => {
+        if (data && Array.isArray(data)) {
+            addTodoCard(id, data)
+        }
+        setShowMultipleTodoDialog(false);
+    }
+
     return (
         <Box
             className={classes.todoListContainer}
@@ -178,6 +187,9 @@ const TodoList = (properties: TodoListInterface) => {
                         </Typography>
                     </Box>
                     <Box>
+                        <IconButton  size="small" onClick={() => setShowMultipleTodoDialog(true)}>
+                            <MultilineChart fontSize="small" classes={{root: classes.iconFontSize}} />
+                        </IconButton>
                         <IconButton size="small" onClick={() => addTodoCard(id)}>
                             <AddCircleOutline fontSize="small" classes={{root: classes.iconFontSize}} />
                         </IconButton>
@@ -191,6 +203,10 @@ const TodoList = (properties: TodoListInterface) => {
                 onAction={handleConfirmDialog}
                 open={showConfirmDialog}
                 description="You never retrive this data again!"
+            />
+            <RichTextEditorDialog
+                onAction={addMultipleTodoCards}
+                open={showMultipleTodoDialog}
             />
         </Box>
     )

@@ -1,13 +1,13 @@
 [
     {
         "backgroundColor": "#fff",
-        "color": "#000",
+        "color": "#000000",
         "title": "Tasks",
         "id": "1",
         "createdAt": 1652699481777,
         "todoCards": [{
             "backgroundColor": "#fff",
-            "color": "#000",
+            "color": "#000000",
             "title": "Task Name",
             "id": "todo-1",
             "createdAt": 1652699581777,
@@ -17,7 +17,7 @@
     },
     {
         "backgroundColor": "#fff",
-        "color": "#000",
+        "color": "#000000",
         "title": "Process",
         "id": "2",
         "createdAt": 1652699482777,
@@ -25,7 +25,7 @@
     },
     {
         "backgroundColor": "#fff",
-        "color": "#000",
+        "color": "#000000",
         "title": "Completed",
         "id": "3",
         "createdAt": 1652699483777,

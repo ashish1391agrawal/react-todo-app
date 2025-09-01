@@ -4,7 +4,7 @@ export interface TodoListInterface {
     todoList: TodoListDataInterface;
     categoryList?: Array<HandleTodoListColorInterface>;
     // Methods 
-    addTodoCard: (todoId: string) => void;
+    addTodoCard: (todoId: string, cardTitle?: Array<string>) => void;
     handleTodoCardColor: (todoCardObject: HandleTodoCardColorInterface) => void;
     updateListOnDrag: (listId: string) => void;
     setDraggedData: (data: DraggedTodoCardDataInterface) => void;

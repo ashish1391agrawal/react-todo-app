@@ -47,22 +47,23 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
         return { addNewList }
     })
 
-    const addTodoCard = (listId: string): void => {
-        const defaultTodoCard: TodoCardDataInterface = {
+    const addTodoCard = (listId: string, todoCardTitleList = ['Task Title']): void => {
+        const defaultTodoCard: Array<TodoCardDataInterface> = todoCardTitleList.map((todoCardTitle, index) => ({
             createdAt: Date.now(),
             description: 'Add your task description',
-            id: Date.now().toString(),
-            title: 'Task Title',
-            color: '#000',
+            id: `${Date.now().toString()}-${index}`,
+            title: todoCardTitle,
+            color: '#000000',
             backgroundColor: '#fff',
             todoListId: listId
-        }
+        }))
 
         const updatedTodoList = todoListsState.map((listData) => {
             if (listData.id === listId) {
+                console.log('====', defaultTodoCard)
                 return {
                     ...listData,
-                    todoCards: [...listData.todoCards, defaultTodoCard]
+                    todoCards: [...listData.todoCards, ...defaultTodoCard]
                 }
             }
             return listData
