@@ -20,10 +20,7 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
 
     useEffect(() => {
         const myLocalData = localStorage.getItem('myTodoData');
-        if (myLocalData) {
-            const myLocalDataList = JSON.parse(myLocalData) as Array<TodoListDataInterface>;
-            updateMyStateLocal(myLocalDataList);
-        } else {
+        if (!myLocalData) {
             updateMyStateLocal(todoListsState);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,7 +57,6 @@ const Home = forwardRef((properties: HomeInterface, ref) => {
 
         const updatedTodoList = todoListsState.map((listData) => {
             if (listData.id === listId) {
-                console.log('====', defaultTodoCard)
                 return {
                     ...listData,
                     todoCards: [...listData.todoCards, ...defaultTodoCard]

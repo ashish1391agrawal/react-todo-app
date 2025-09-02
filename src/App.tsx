@@ -14,8 +14,11 @@ import { ChildRefComponentInterface } from './components/Home/types'
 
 const App = () => {
   const [bacgroundImage, setBackground] = useState('https://img.theculturetrip.com/wp-content/uploads/2017/10/the-ridge-shimla.jpg')
-
-  const { todoLists } = mocks()
+  const localData = localStorage.getItem('myTodoData');
+  let { todoLists } = mocks()
+  if(localData) {
+    todoLists = JSON.parse(localData)
+  }
 
   const parentRef = useRef<ChildRefComponentInterface>()
 
